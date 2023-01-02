@@ -9,12 +9,6 @@
       </div>
       <p class="article-title">{% if object.title %}{{object.title}}{% else %}{{ object.date_posted|date:"F j, Y, H:i" }}{% endif %}</p>
       <p class="article-content">{{ object.content }}</p>
-      <!-- {% if object.image %}<img src="{{ object.image.url}}" class="article-photo">{% endif %} -->
-      <!-- {% if object.audio %}<audio controls style="opacity:1;"><source src="{{ object.audio.url}}" type="audio/mpeg"></audio>{% endif %} -->
-
-      <!-- allowing only the author to update or delete his or her posts -->
-      <!-- the same settings need to be enabled in the blog/views.py file -->
-
       {% if object.author == user %}
         <div class="article-buttons">
           <a class="button secondary_button short_button" href="{% url 'post-update' object.id %}">Update</a>

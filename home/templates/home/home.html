@@ -1,6 +1,54 @@
 {% extends "home/base.html" %}
-<!-- {% load static %} -->
 {% block content %}
+{% block navbar %}
+    
+    <nav class="navbar navbar-default navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/home">{{ settings.APP_NAME }}</a>
+            </div>
+            <ul class="nav navbar-nav">
+                {% url 'home' as home %}
+                <li {% if request.get_full_path == home %}class="active"{% endif %}>
+                    <a href="{% url 'home:posts' %}">Home</a>
+                </li>
+            </ul>
+        <!-- https://stackoverflow.com/questions/22047251/django-dynamically-get-view-url-and-check-if-its-the-current-page -->
+    
+            <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                <li>
+                <a href="{% url 'home:post_create' %}">Create post</a>
+                </li>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'logout' %}?next={% url 'home:all' %}">Logout</a></li>
+                </ul>
+                </li>
+                {% else %}
+                <li>
+                <a href="{% url 'login' %}?next={% url 'home:home' %}">Login</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+<div class="container">
+  <div {% if 'login' in request.path or 'logout' in request.path or 'register' in request.path %} class="row justify-content-center" {% else %} class="row justify-content-start" {% endif %}>
+
+    <!-- Notifications -->
+    {% if message %}
+    <div {% if 'logout' in request.path %} class="alert alert-{{ tag }} col-12 col-sm-7 col-md-12 col-lg-12" {% else %} class="alert alert-{{ tag }} col-12" {% endif %} style="margin-bottom:20px;margin-top:-25px;">
+      {{ message }}
+    </div>
+    {% elif request.GET.account == 'success' %}
+    <div class="alert alert-success col-12" style="margin-bottom:60px;margin-top:-25px;">
+      Your account has been successfully created!
+    </div>
+    {% endif %}
+  </div>
+</div>
+        
+{% endblock %}
 
 <!-- Search form -->
 <!-- Display the search form only if there are posts to search in -->
@@ -8,16 +56,12 @@
 <div id="inputHomepage">
   <form action="" method="get">
     <input type="text" id="searchFieldHomepage" name="search" placeholder="Search" value="{{ request.GET.search }}">
-    <button type="submit" value="Search" id="searchButtonHomepage">
-      <div>
-        <img src="{% static 'home/img/search.png' %}">
-      </div>
-    </button>
+    <button type="submit" value="Search" id="searchButtonHomepage"></button>
   </form>
 </div>
 {% endif %}
 
-<div class="col-12 main_content">
+<!-- <div class="col-12 main_content"> -->
   <!-- Posts -->
   {% if posts %}
     {% for post in posts %}
@@ -31,15 +75,12 @@
               {% if post.title %}{{post.title}}{% else %}{{ post.date_posted|date:"F j, Y, H:i" }}{% endif %}
             </a>
           </div>
-          <!-- <p class="article-content">{{ post.content }}</p>
-          {% if post.image %}<img src="{{ post.image.url}}" class="imageMain">{% endif %}
-          {% if post.audio %}<audio controls><source src="{{ post.audio.url}}" type="audio/mpeg"></audio>{% endif %} -->
         </div>
       </article>
-    {% endfor %}
+    {% endfor %} 
 
     <!-- Pagination -->
-    {% if is_paginated %}
+    <!-- {% if is_paginated %}
 
       <div class="pagination">
         {% if page_obj.has_previous %}
@@ -74,7 +115,7 @@
         </a>
         {% endif %}
       </div>
-    {% endif %}
+    {% endif %} -->
 
   {% else %}
     {% if request.GET.search %}

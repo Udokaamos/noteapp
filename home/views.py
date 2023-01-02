@@ -38,7 +38,7 @@ TextField.register_lookup(Lower, "lower")
 # if users are allowed to view only their own posts, not anyone else's, then leave this and the next class uncommented
 class PostListView(LoginRequiredMixin, ListView):
     model = Post
-    template_name = 'blog/home.html'
+    template_name = 'home/home.html'
     context_object_name = 'posts' # the name of a context variable with the queryset results
     ordering = ['-date_posted']
     paginate_by = 20
@@ -65,7 +65,7 @@ class PostDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = CreateViewForm # making the class use an existing form with pre-defined validation rules
-    template_name = 'blog/post_create.html'
+    template_name = 'home/post_create.html'
     success_url = '/'
 
     def form_valid(self, form):
@@ -93,7 +93,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 # if users are allowed to update or delete only their own posts, then leave this and the next class uncommented
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
-    template_name = 'blog/post_update.html'
+    template_name = 'home/post_update.html'
     form_class = UpdateViewForm
 
     def form_valid(self, form):
@@ -110,7 +110,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     success_url = '/'
-    template_name = 'blog/post_delete.html'
+    template_name = 'home/post_delete.html'
 
     def test_func(self):
         post = self.get_object()

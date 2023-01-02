@@ -9,7 +9,7 @@ class CreateViewForm(forms.ModelForm):
 
     title = forms.CharField(required=False) # defining the field as not required
     content = forms.CharField(required=False)
-    audio = forms.FileField(required=False)
+    # audio = forms.FileField(required=False)
 
     # Meta class is there for defining and altering various metadata features
     class Meta:
@@ -38,11 +38,11 @@ class UpdateViewForm(forms.ModelForm):
 
     title = forms.CharField(required=False)
     content = forms.CharField(required=False)
-    audio = forms.FileField(required=False)
+    # audio = forms.FileField(required=False)
 
     class Meta:
         model = Post
-        fields = ['title','content','date_posted','image','audio']
+        fields = ['title','content','date_posted']
 
     def clean(self):
         cleaned_data = super(UpdateViewForm, self).clean()
