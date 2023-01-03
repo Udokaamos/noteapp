@@ -29,35 +29,25 @@ from django.conf import settings
 from django.views.generic import TemplateView
 from django.views.static import serve
 # serving media files in DEBUG=FALSE mode, not appropriate for production
-# from django.views.static import serve
-# from django.conf.urls import url
+
 
 urlpatterns = [
-    path('home/', include('home.urls')),
     path('admin/', admin.site.urls),
-    path('accounts/', include('django.contrib.auth.urls')),
     path('register/', user_views.register, name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/', user_views.logout_view, name='logout'), # using a custom logout function
-    path('logout/', auth_views.LogoutView.as_view(template_name='users/login.html'), name='logout'),
-    path('', TemplateView.as_view(template_name='home/base.html')),
     # re_path(r'^oauth/', serve,{'document_root': settings.MEDIA_ROOT}),
-    # path('', include('home.urls')),
+    path('home/', include('home.urls')),
     # url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}), # serving media files in DEBUG=FALSE mode
 ]
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-urlpatterns += [
-    re_path(r'^site/(?P<path>.*)$', serve,
-        {'document_root': os.path.join(BASE_DIR, 'site'),
-         'show_indexes': True},
-        name='site_path'
-        ),
-]
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# urlpatterns += [
+#     re_path(r'^site/(?P<path>.*)$', serve,
+#         {'document_root': os.path.join(BASE_DIR, 'site'),
+#          'show_indexes': True},
+#         name='site_path'
+#         ),
+# ]
 
-    # Change to ads.urls
-    # path('admin/', admin.site.urls),  # Keep
-    # path('accounts/', include('django.contrib.auth.urls')),  # Keep
-    # path('ads/', include('ads.urls')),
-    # path('menu/', include('menu.urls')),
-    # path('', TemplateView.as_view(template_name='home/main.html')),
+  

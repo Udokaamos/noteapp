@@ -10,11 +10,11 @@ class Post(models.Model) :
             validators=[MinLengthValidator(2, "Title must be greater than 2 characters")]
     )
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='post_owner')
-    content = models.TextField()
+    text = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now) # recording the timestamp when a new entry is created
     author = models.ForeignKey(User, on_delete=models.CASCADE) # ForeignKey defines a "many-to-one relationship"
     updated_at = models.DateTimeField(auto_now=True)
-    
+
 
 
     def __str__(self):

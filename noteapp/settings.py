@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home.apps.HomeConfig',
     'users.apps.UsersConfig',
+    'django_extensions',
+    'rest_framework',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -61,7 +64,7 @@ ROOT_URLCONF = 'noteapp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['home/templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -126,11 +129,20 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
+
+
+LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = 'login'
+

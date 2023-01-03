@@ -1,4 +1,5 @@
 {% extends "home/base.html" %}
+{% load static %}
 {% block content %}
 
 <div class="col-12" style="padding:0px;">
@@ -21,14 +22,6 @@
           <button class="button disabled_button short_button" style="cursor:default;">Delete</button>
         </div>
       {% endif %}
-
-      <!-- allowing everyone to update or delete anyone's posts -->
-      <!-- the same settings need to be enabled in the blog/views.py file -->
-
-      <!-- <div class="article-buttons">
-        <a class="button secondary_button short_button" href="{% url 'post-update' object.id %}">Update</a>
-        <a class="button alert_button short_button" href="{% url 'post-delete' object.id %}">Delete</a>
-      </div> -->
 
     </div> 
   </article>

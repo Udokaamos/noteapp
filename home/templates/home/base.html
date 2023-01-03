@@ -1,57 +1,33 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
 
 <title>{% block title %}{{ settings.APP_NAME }}{% endblock %}</title>
+
+<!-- Meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<link rel="stylesheet"
-    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"
-    crossorigin="anonymous">
+<!-- JavaScript files -->
+<script src="{% static 'blog/js/moment.min.js' %}"></script>
+<script src="{% static 'blog/js/jquery-2.1.1.min.js' %}"></script>
+<script src="{% static 'blog/js/bootstrap-datetimepicker.min.js' %}"></script>
 
-<link rel="stylesheet"
-    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap-theme.min.css"
-    crossorigin="anonymous">
-
-<link rel="stylesheet"
-    href="https://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css"
-     crossorigin="anonymous">
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"
-    crossorigin="anonymous"></script>
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"
-    crossorigin="anonymous"></script>
-
-<script
-  src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
-  crossorigin="anonymous"></script>
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/v4-shims.css">
+<!-- CSS files -->
+<link rel="stylesheet" href="{% static 'blog/css/bootstrap-datetimepicker.min.css' %}">
+<link rel="stylesheet" href="{% static 'blog/css/modified-bootstrap.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'blog/css/main.css' %}">
 
 </head>
 <body>
-    <div class="container">
-    {% block navbar %} {% endblock %}
-    {% block welcome %} {% endblock %}
-    {% block messages %}
-        {% if messages %}
-        {% for msg in messages %}
-            <div class="alert alert-{{msg.level_tag}}" role="alert">
-            {{msg.message}}
-            </div>
-        {% endfor %}
-        {% endif %}
-    {% endblock %}
+
+    <!-- Main content -->
     {% block content %}
     {% endblock %}
-    </div>
-    {% block footer %} {% endblock %}
-<!-- Showing vertical navigation, if the user is logged in -->
-<!-- Main content -->
+
+  </div>
+</div>
 
 </body>
 </html>

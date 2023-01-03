@@ -13,44 +13,27 @@ from django.db.models import Q, TextField
 from django.db.models.functions import Lower
 TextField.register_lookup(Lower, "lower")
 
-
-# if users are allowed to view anyone's posts, not only theirs, then leave this and the next class uncommented
-# class PostListView(LoginRequiredMixin, ListView):
-#     model = Post
-#     template_name = 'blog/home.html'
-#     context_object_name = 'posts' # the name of a context variable with the queryset results
-#     ordering = ['-date_posted']
-#     paginate_by = 20
-
-#     # modifying the function for returning posts
-#     def get_queryset(self):
-#         # if there is a search query in the URL parameter, then use it to filter the results
-#         search_query = self.request.GET.get('search', '')
-#         # using Q for case-insensitive search in a MySQL database
-#         queryset = Post.objects.filter(Q(content__lower__contains=search_query)).order_by('-date_posted')
-#         return queryset
-
-
-# class PostDetailView(LoginRequiredMixin, DetailView):
-#     model = Post
-
-
 # if users are allowed to view only their own posts, not anyone else's, then leave this and the next class uncommented
 class PostListView(LoginRequiredMixin, ListView):
     model = Post
     template_name = 'home/home.html'
     context_object_name = 'posts' # the name of a context variable with the queryset results
     ordering = ['-date_posted']
-    paginate_by = 20
 
     # modifying the function for returning posts
     def get_queryset(self):
         # if there is a search query in the URL parameter, then use it to filter the results
-        search_query = self.request.GET.get('search', '')
-        # using Q for case-insensitive search in a MySQL database
-        # filtering for posts where the user is the author
-        queryset = Post.objects.filter(Q(content__lower__contains=search_query)).filter(author_id=self.request.user.id).order_by('-date_posted')
-        return queryset
+        search_query = self.request.GET.get('search', 'False')
+        if search_query:
+            query = Q(title__icontains=search_query)
+            query.add(Q(text__icontains=search_query), Q.OR)
+            # using Q for case-insensitive search in a MySQL database
+            # filtering for posts where the user is the author
+            objects = Post.objects.filter(query).select_related().filter(author_id=self.request.user.id).order_by('-date_posted')
+        else :
+            objects = Post.objects.all().order_by('-updated_at')[:10]
+
+        return objects
 
 class PostDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = Post
@@ -71,23 +54,6 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
-
-
-# if users are allowed to update or delete anyone's posts, not only theirs, then leave this and the next class uncommented
-# class PostUpdateView(LoginRequiredMixin, UpdateView):
-#     model = Post
-#     template_name = 'blog/post_update.html'
-#     form_class = UpdateViewForm
-
-#     def form_valid(self, form):
-#         form.instance.author = self.request.user
-#         return super().form_valid(form)
-
-
-# class PostDeleteView(LoginRequiredMixin, DeleteView):
-#     model = Post
-#     success_url = '/'
-#     template_name = 'blog/post_delete.html'
 
 
 # if users are allowed to update or delete only their own posts, then leave this and the next class uncommented
