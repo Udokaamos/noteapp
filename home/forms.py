@@ -3,48 +3,14 @@ from django.forms import ModelForm
 from .models import Post
 from django.core.exceptions import ValidationError
 
-
-# creating a form for custom validation
-class CreateViewForm(forms.ModelForm):
-
-    title = forms.CharField(required=False) # defining the field as not required
-    # text = forms.TextField(required=False)
-    # audio = forms.FileField(required=False)
-
-    # Meta class is there for defining and altering various metadata features
-    class Meta:
-        model = Post
-        fields = ['title','text','date_posted', 'author']
-
-    def clean(self): # validation function
-        cleaned_data = super(CreateViewForm, self).clean()
-
-        input_field_1 = cleaned_data.get('title') # getting input from the title field
-        input_field_2 = cleaned_data.get('text') # getting input from the content field
-
-        if input_field_1 is not None and input_field_2 is not None:
-            if len(input_field_2)<3:
-                # self.add_error(None, ValidationError('The title should be different')) # non-field error
-                self.add_error('text', ValidationError('The message is too short')) # title field error
-
-
-class UpdateViewForm(forms.ModelForm):
-
-    title = forms.CharField(required=False)
-    text = forms.CharField(required=False)
-    # audio = forms.FileField(required=False)
+class CreateForm(forms.ModelForm):
+    post = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class': 'form-control',
+            'placeholder': 'Write a post...'
+        }
+    ))
 
     class Meta:
         model = Post
-        fields = ['title','text','date_posted']
-
-    def clean(self):
-        cleaned_data = super(UpdateViewForm, self).clean()
-
-        input_field_1 = cleaned_data.get('title')
-        input_field_2 = cleaned_data.get('text')
-        input_field_3 = cleaned_data.get('date_posted')
-
-        if input_field_1 is not None and input_field_2 is not None:
-            if len(input_field_2)<3:
-                self.add_error('text', ValidationError('The message is too short'))
+        fields = ('title','text')
