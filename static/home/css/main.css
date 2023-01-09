@@ -277,7 +277,6 @@ input, textarea {
 .fileContainerButton {
   padding: 0.5em;
   border: 1px solid #A0A0A0;
-  float: right;
   display: inline-block;
   left:90%;
 }

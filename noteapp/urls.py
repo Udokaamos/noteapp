@@ -28,26 +28,23 @@ from django.urls import path, include, re_path
 from django.conf import settings
 from django.views.generic import TemplateView
 from django.views.static import serve
-# serving media files in DEBUG=FALSE mode, not appropriate for production
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('register/', user_views.register, name='register'),
-    # path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
-    # path('logout/', user_views.logout_view, name='logout'), # using a custom logout function
-    # re_path(r'^oauth/', serve,{'document_root': settings.MEDIA_ROOT}),
     path('home/', include('home.urls')),
-    # url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}), # serving media files in DEBUG=FALSE mode
-]
-
-# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-# urlpatterns += [
-#     re_path(r'^site/(?P<path>.*)$', serve,
-#         {'document_root': os.path.join(BASE_DIR, 'site'),
-#          'show_indexes': True},
-#         name='site_path'
-#         ),
-# ]
-
+    path('register/', user_views.register, name='register'),
+    path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
+    path('logout/', user_views.logout_view, name='logout'), # using a custom logout function
+    path('', TemplateView.as_view(template_name='home/base.html')),
+]   
   
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+urlpatterns += [
+    re_path(r'^site/(?P<path>.*)$', serve,
+        {'document_root': os.path.join(BASE_DIR, 'site'),
+         'show_indexes': True},
+        name='site_path'
+        ),
+]
