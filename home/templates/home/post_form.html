@@ -1,0 +1,32 @@
+{% extends "home/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<!-- A popup for date and time selection -->
+<script>
+  $(function () {
+    $('#id_date_posted').datetimepicker({
+    format: 'YYYY-MM-DD HH:mm:ss',
+    //debug:true,
+    icons: {
+      time: "icon_time",
+      date: "icon_date",
+      up: "icon_up",
+      down: "icon_down",
+      next: "icon_right",
+      previous: "icon_left"
+    }
+  });
+ });
+</script>
+
+
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="Submit">
+    <!-- <input type="submit" value="Cancel" onclick="window.location.href='{% url 'home' %}';return false;"> -->
+ 
+    
+    </form>      
+{% endblock content %}

@@ -1,7 +1,13 @@
 {% extends "home/base.html" %}
 {% block content %}
-    <h2>Welcome to My NoteApp</h2>
-    <p>
-    Hello!!!
-    </p>
+<h2>Welcome to My NoteApp</h2>
+<form action="" method="POST">
+    {% csrf_token %}
+<div class="navbar-menu">
+    <div class="navbar-end">
+        <a href="{% url 'post_create' %}">Create New note</a>
+    
+    </div>
+ </div>
+</form>
 {% endblock content %}

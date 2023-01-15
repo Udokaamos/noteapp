@@ -28,11 +28,14 @@ from django.urls import path, include, re_path
 from django.conf import settings
 from django.views.generic import TemplateView
 from django.views.static import serve
-
+# from home.views import PostListView,  PostCreateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('home/', include('home.urls')),
+    path('', include('home.urls')),
+
+    # path('', post, name='post'),
+    # path('delete_post/<int:docid>/', delete_post, name='delete_post'),
     path('register/', user_views.register, name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/', user_views.logout_view, name='logout'), # using a custom logout function
