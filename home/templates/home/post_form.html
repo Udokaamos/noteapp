@@ -20,11 +20,28 @@
  });
 </script>
 
+<div class="add-modal" id="add-modal">
+    <div class="form">
+        <form action="" method="post">
+            <h3>Add Note</h3>
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" name="title" id="title" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="description">description</label>
+                <textarea name="description" id="description" class="form-control" rows="5"></textarea>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-danger close-btn" onclick="closeModal('add-modal')">Cancel</button>
+            </div>
+        </form>
 
-<form action="" method="POST">
+<!-- <form action="" method="POST">
     {% csrf_token %}
     {{ form|crispy }}
-    <input type="submit" value="Submit">
+    <input type="submit" value="Submit"> -->
     <!-- <input type="submit" value="Cancel" onclick="window.location.href='{% url 'home' %}';return false;"> -->
  
     

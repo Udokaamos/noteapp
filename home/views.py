@@ -18,18 +18,18 @@ class PostListView(LoginRequiredMixin, ListView):
     model = Post
     template_name = "home/post_list.html"
 
-    def get(self, request, pk=None):
+    def get(self, request):
         post_list = Post.objects.all()
         ctx = {'post_list': post_list}
         return render(request, self.template_name, ctx)
 
-    def get_queryset(self):
-#         # if there is a search query in the URL parameter, then use it to filter the results
-        search_query = self.request.GET.get('search', '')
-#         # using Q for case-insensitive search in a MySQL database
-#         # filtering for posts where the user is the author
-        queryset = Post.objects.filter(Q(content__lower__contains=search_query)).filter(author_id=self.request.user.id).order_by('-date_posted')
-        return queryset   
+#     def get_queryset(self):
+# #         # if there is a search query in the URL parameter, then use it to filter the results
+#         search_query = self.request.GET.get('search', '')
+# #         # using Q for case-insensitive search in a MySQL database
+# #         # filtering for posts where the user is the author
+#         queryset = Post.objects.filter(Q(content__lower__contains=search_query)).filter(author_id=self.request.user.id).order_by('-date_posted')
+#         return queryset   
 
     # def post(self, request):
     #     form = CreateForm(request.POST)

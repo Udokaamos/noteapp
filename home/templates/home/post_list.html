@@ -10,4 +10,9 @@
     </div>
  </div>
 </form>
+<ul>
+    {% for post in post_list %}
+        <li>{{ post.title }}</li>
+    {% endfor %}
+    </ul>
 {% endblock content %}
