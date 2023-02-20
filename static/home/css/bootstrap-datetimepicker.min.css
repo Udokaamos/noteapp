@@ -376,27 +376,27 @@
   background-repeat: no-repeat;
 }
 .icon_time {
-  background-image: url('/static/blog/img/time.png');
+  background-image: url('/static/home/img/time.png');
   border: 10px solid transparent;
   opacity:0.8;
 }
 .icon_date {
-  background-image: url('/static/blog/img/date.png');
+  background-image: url('/static/home/img/date.png');
   border: 10px solid transparent;
   opacity:0.8;
 }
 .icon_up {
-  background-image: url('/static/blog/img/up.png');
+  background-image: url('/static/home/img/up.png');
   border: 15px solid transparent;
   opacity:0.5;
 }
 .icon_down {
-  background-image: url('/static/blog/img/down.png');
+  background-image: url('/static/home/img/down.png');
   border: 15px solid transparent;
   opacity:0.5;
 }
 .icon_left {
-  background-image: url('/static/blog/img/left.png');
+  background-image: url('/static/home/img/left.png');
   border: 2px solid transparent;
   display:inline-block;
   opacity:0.8;
@@ -404,7 +404,7 @@
   height:20px;
 }
 .icon_right {
-  background-image: url('/static/blog/img/right.png');
+  background-image: url('/static/home/img/right.png');
   border: 2px solid transparent;
   display:inline-block;
   opacity:0.8;

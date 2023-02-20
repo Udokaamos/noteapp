@@ -1,4 +1,5 @@
-{% extends "blog/base.html" %}
+{% extends "home/base.html" %}
+<!-- {% load static %} -->
 {% block content %}
 
 <div class="col-12" style="padding:0px;">
@@ -12,7 +13,7 @@
         <button class="button alert_button" type="submit">
           <span>Yes, delete</span>
         </button>
-        <a class="button secondary_button" href="{% url 'post-detail' %}">Cancel</a>
+        <a class="button secondary_button" href="{% url 'post_detail' post.id%}">Cancel</a>
       </div>
     </form>
   </div>

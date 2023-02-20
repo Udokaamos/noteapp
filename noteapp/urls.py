@@ -45,8 +45,8 @@ urlpatterns = [
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 urlpatterns += [
-    re_path(r'^site/(?P<path>.*)$', serve,
-        {'document_root': os.path.join(BASE_DIR, 'site'),
+    re_path(r'^home/(?P<path>.*)$', serve,
+        {'document_root': os.path.join(BASE_DIR, 'home'),
          'show_indexes': True},
         name='site_path'
         ),
